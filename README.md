@@ -1,113 +1,104 @@
-# Project Instructions
+# Sentiment Analysis Project
 
-This repo is your starter code for the project. It is the same as the starter code we began with in lesson 2. Install and configure Webpack just as we did in the course. Feel free to refer to the course repo as you build this one, and remember to make frequent commits and to create and merge branches as necessary!
+## Project Overview
 
-The goal of this project is to give you practice with:
-- Setting up Webpack
-- Sass styles
-- Webpack Loaders and Plugins
-- Creating layouts and page design
-- Service workers
-- Using APIs and creating requests to external urls
+This project demonstrates the use of Natural Language Processing (NLP) to analyze and interpret text content. It leverages external APIs to retrieve sentiment analysis data and displays the results on a web page. Specifically, the project utilizes the MeaningCloud API to analyze articles or blog posts and categorize the sentiment. The project aims to help you practice setting up Webpack, configuring loaders and plugins, working with Sass, and interfacing with external APIs.
 
-On top of that, I want to introduce you to the topic of Natural Language Processing. NLPs leverage machine learning and deep learning create a program that can interpret natural human speech. Systems like Alexa, Google Assistant, and many voice interaction programs are well known to us, but understanding human speech is an incredibly difficult task and requires a lot of resources to achieve. Full disclosure, this is the Wikipedia definition, but I found it to be a clear one:
+### Key Features:
+- Setting up Webpack configuration with loaders and plugins
+- Implementing Scss styles
+- Working with external APIs for sentiment analysis
+- Building client-server architecture using Node.js and Express
+- Managing environment variables securely
 
-> Natural language processing (NLP) is a subfield of computer science, information engineering, and artificial intelligence
-concerned with the interactions between computers and human (natural) languages, in particular how to program computers to
-process and analyze large amounts of natural language data.
+## Getting Started
 
-You could spend years and get a masters degree focusing on the details of creating NLP systems and algorithms. Typically, NLP programs require far more resources than individuals have access to, but a fairly new API called Aylien has put a public facing API in front of their NLP system. We will use it in this project to determine various attributes of an article or blog post.
+### Prerequisites
+- Node.js
+- NPM or Yarn
 
-## Getting started
+### Dependencies
 
-It would probably be good to first get your basic project setup and functioning. Follow the steps from the course up to Lesson 4 but don't add Service Workers just yet. We won't need the service workers during development and having extra caches floating around just means there's more potential for confusion. So, fork this repo and begin your project setup.
+#### Development Dependencies
+- Webpack
+- Webpack Dev Server
+- Babel Loader
+- HTML Webpack Plugin
+- Clean Webpack Plugin
+- Copy Webpack Plugin
+- Mini CSS Extract Plugin
+- CSS Minimizer Webpack Plugin
+- Terser Webpack Plugin
 
-Remember that once you clone, you will still need to install everything:
+#### Runtime Dependencies
+- Express
+- Axios
+- Dotenv
+- Form-data (for MeaningCloud API)
 
-`cd` into your new folder and run:
-- `npm install`
+### Installation
 
-## Setting up the API
+1. **Clone the Repository**
+    ```bash
+    git clone https://github.com/saitamacoder196/evaluate-news-nlp.git
+    ```
 
-The Aylien/MeaningCloud API is perhaps different than what you've used before. You may need to install a node module to run certain commands through, it will simplify the requests we need to make from our node/express backend.
+2. **Change to Project Directory**
+    ```bash
+    cd evaluate-news-nlp
+    ```
 
-### Step 1: Signup for an API key
+3. **Install Dependencies**
+    ```bash
+    npm install
+    ```
 
-**For the Aylien API:** First, you will need to go [here](https://developer.aylien.com/signup). Signing up will get you an API key. Don't worry, at the time of this course, the API is free to use up to 1000 requests per day or 333 intensive requests. It is free to check how many requests you have remaining for the day.
+### API Setup
 
-**For the MeaningCloud API**: You can find the API [here](https://www.meaningcloud.com/developer/sentiment-analysis). Once you create an account with MeaningCloud, you will be given a license key to start using the API. This API does not require an SDK, so you can skip ahead to step 4 in the instructions.
+1. **Get API Credentials**
+    - Sign up for a free API key from [MeaningCloud Sentiment Analysis](https://www.meaningcloud.com/developer/sentiment-analysis).
 
-### Step 2: Install the SDK (Aylien API only)
-Next you'll need to get the SDK. SDK stands for Software Development Kit, and SDKs are usually a program that brings together various tools to help you work with a specific technology. SDKs will be available for all the major languages and platforms, for instance the Aylien SDK brings together a bunch of tools and functions that will make it possible to interface with their API from our server and is available for Node, Python, PHP, Go, Ruby and many others. We are going to use the Node one, the page is available [here](https://docs.aylien.com/textapi/sdks/#sdks). You get 1000 free requests per day.
+2. **Setup Environment Variables**
+    - Create a `.env` file in the root directory and add your API credentials:
+    ```bash
+    LICENSE_KEY=your-meaningcloud-api-key
+    ```
 
-**For the MeaningCloud API**, you may need to install the [form-data](https://www.npmjs.com/package/form-data) module to follow its [JavaScript example](https://learn.meaningcloud.com/developer/sentiment-analysis/2.1/dev-tools).
+3. **Ensure `.env` is Ignored**
+    - Add `.env` to `.gitignore` to prevent pushing sensitive data to a public repository.
 
-### Step 3: Require the SDK package
-Install the SDK in your project and then we'll be ready to set up your server/index.js file.
+### Running the Application
 
-Your server index.js file must have these things:
+#### Development Mode
+- **Start Webpack Dev Server**
+    ```bash
+    npm run start
+    ```
+- **Build Dev Bundle**
+    ```bash
+    npm run build-dev
+    ```
 
-- [ ] Require the Aylien npm package
-```
-var aylien = require("aylien_textapi");
-```
+#### Production Mode
+- **Build Production Bundle**
+    ```bash
+    npm run build
+    ```
 
-### Step 4: Environment Variables
-Next we need to declare our API keys, which will look something like this:
-```
-// set aylien API credentias
-var textapi = new aylien({
-  application_id: "your-api-id",
-  application_key: "your-key"
-});
-```
+- **Run Express Server**
+    ```bash
+    npm run build-prod
+    ```
 
-...but there's a problem with this. We are about to put our personal API keys into a file, but when we push, this file is going to be available PUBLICLY on Github. Private keys, visible publicly are never a good thing. So, we have to figure out a way to make that not happen. The way we will do that is with environment variables. Environment variables are pretty much like normal variables in that they have a name and hold a value, but these variables only belong to your system and won't be visible when you push to a different environment like Github.
+## Project Structure
+- **src/client**: Contains the client-side code, including JavaScript, styles, and HTML templates.
+- **src/server**: Contains the server-side code for handling API requests and serving client content.
+- **webpack-dev.js**: Webpack configuration for development mode.
+- **webpack-prod.js**: Webpack configuration for production mode.
 
-- [ ] Use npm or yarn to install the dotenv package ```npm install dotenv```. This will allow us to use environment variables we set in a new file
-- [ ] Create a new ```.env``` file in the root of your project
-- [ ] Go to your .gitignore file and add ```.env``` - this will make sure that we don't push our environment variables to Github! If you forget this step, all of the work we did to protect our API keys was pointless.
-- [ ] Fill the .env file with your API keys like this:
-```
-API_ID=**************************
-API_KEY=**************************
-```
-- [ ] Add this code to the very top of your server/index.js file:
-```
-const dotenv = require('dotenv');
-dotenv.config();
-```
-- [ ] Reference variables you created in the .env file by putting ```process.env``` in front of it, an example might look like this:
-```
-console.log(`Your API key is ${process.env.API_KEY}`);
-```
-...Not that you would want to do that. This means that our updated API credential settings will look like this:
-```javascript
-// set aylien API credentials
-// NOTICE that textapi is the name I used, but it is arbitrary. 
-// You could call it aylienapi, nlp, or anything else, 
-//   just make sure to make that change universally!
-var textapi = new aylien({
-  application_id: process.env.API_ID,
-  application_key: process.env.API_KEY
-});
-```
+## Further Development
+- **Service Workers**: Implement service workers for offline functionality.
+- **Error Handling**: Improve error handling and validation on both the client and server.
 
-### Step 5: Using the API
-
-We're ready to go! The API has a lot of different endpoints you can take a look at [here](https://docs.aylien.com/textapi/endpoints/#api-endpoints). And you can see how using the SDK simplifies the requests we need to make. 
-
-I won't provide further examples here, as it's up to you to create the various requests and make sure your server is set up appropriately.
-
-## After the Aylien API
-
-Once you are hooked up to the Aylien API, you are most of the way there! Along with making sure you are following all the requirements in the project rubric in the classroom, here are a few other steps to make sure you take.
-
-- Parse the response body to dynamically fill content on the page.
-- Test that the server and form submission work, making sure to also handle error responses if the user input does not match API requirements.
-- Go back to the web pack config and add the setup for service workers. 
-- Test that the site is now available even when you stop your local server
-
-## Deploying
-
-A great step to take with your finished project would be to deploy it! Unfortunately its a bit out of scope for me to explain too much about how to do that here, but checkout [Netlify](https://www.netlify.com/) or [Heroku](https://www.heroku.com/) for some really intuitive free hosting options.
+## License
+MIT License
