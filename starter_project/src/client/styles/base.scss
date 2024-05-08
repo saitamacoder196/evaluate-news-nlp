@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+main {
+    flex: 2;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+
+    section {
+        max-width: 800px;
+        margin: 50px auto;
+
+        #results-section {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 4px;
+        }
+    
+        #results-section h2 {
+            margin-bottom: 15px;
+        }
+    }
+}
